@@ -88,14 +88,17 @@
 <header>
   <h1>🎶 My Singing Monsters Wiki</h1>
   <nav>
-    <a href="#">Monsters</a>
-    <a href="#">Islands</a>
-    <a href="#">Lore</a>
-    <a href="#">Elements</a>
+    <a href="monsters.html">Monsters</a>
+    <a href="islands.html">Islands</a>
+    <a href="lore.html">Lore</a>
+    <a href="#" id="editToggle">Edit Mode</a>
   </nav>
 </header>
 
 <main>
+  <div style="grid-column: 1 / -1;">
+    <input id="search" placeholder="Search monsters, islands, lore…" style="width:100%;padding:0.8rem;border-radius:999px;border:none;font-size:1rem;box-shadow:0 4px 12px rgba(0,0,0,0.1);" />
+  </div>
   <div class="card">
     <h2>👹 Monsters</h2>
     <p>Profiles for every Monster, their elements, sounds, and trivia.</p>
@@ -125,5 +128,18 @@
   Fan project · Not affiliated with Big Blue Bubble
 </footer>
 
+<script>
+  document.getElementById('search').addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      const q = e.target.value.toLowerCase();
+      window.location.href = `search.html?q=${encodeURIComponent(q)}`;
+    }
+  });
+
+  document.getElementById('editToggle').addEventListener('click', e => {
+    e.preventDefault();
+    window.location.href = '/admin';
+  });
+</script>
 </body>
 </html>
