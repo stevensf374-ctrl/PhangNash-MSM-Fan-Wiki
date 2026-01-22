@@ -1,0 +1,42 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images"
+public_folder: "/images"
+
+collections:
+  - name: "monsters"
+    label: "Monsters"
+    folder: "content/monsters"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Monster Name", name: "title", widget: "string" }
+      - { label: "Elements", name: "elements", widget: "list" }
+      - { label: "Sound Description", name: "sound", widget: "text" }
+      - { label: "Island(s)", name: "islands", widget: "list" }
+      - { label: "Image", name: "image", widget: "image", required: false }
+      - { label: "Notes / Trivia", name: "body", widget: "markdown" }
+
+  - name: "islands"
+    label: "Islands"
+    folder: "content/islands"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Island Name", name: "title", widget: "string" }
+      - { label: "Available Monsters", name: "monsters", widget: "list" }
+      - { label: "Song Style", name: "song", widget: "string" }
+      - { label: "Image", name: "image", widget: "image", required: false }
+      - { label: "Description", name: "body", widget: "markdown" }
+
+  - name: "lore"
+    label: "Lore & Story"
+    folder: "content/lore"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Era / Category", name: "category", widget: "string", required: false }
+      - { label: "Story Content", name: "body", widget: "markdown" }
