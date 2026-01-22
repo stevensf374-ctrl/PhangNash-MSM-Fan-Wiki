@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Monsters</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header><h1>👹 Monsters</h1></header>
+<main class="card-grid" id="monsterGrid"></main>
+<script src="data.js"></script>
+<script>
+  monsters.forEach(m => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <img src="${m.image || 'images/placeholder.png'}" />
+      <h3>${m.name}</h3>
+      <p>${m.sound}</p>
+      <div>${m.elements.map(e=>`<span class='pill'>${e}</span>`).join('')}</div>`;
+    document.getElementById('monsterGrid').appendChild(card);
+  });
+</script>
+</body>
+</html>
