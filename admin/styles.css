@@ -1,8 +1,0 @@
-body { font-family: Fredoka, sans-serif; background:#f1f8f3; margin:0; }
-header { background:linear-gradient(135deg,#69c36d,#6bb6ff); padding:1rem; color:#fff; }
-nav a { color:#fff; margin-right:.5rem; text-decoration:none; }
-.card-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:1rem; padding:1rem; }
-.card { background:#fff; border-radius:18px; padding:1rem; box-shadow:0 6px 18px rgba(0,0,0,.1); text-align:center; }
-.card img { width:100%; border-radius:14px; }
-.pill { background:#69c36d; color:#fff; padding:.2rem .6rem; border-radius:999px; font-size:.75rem; }
-input#search { width:100%; padding:.8rem; margin:1rem 0; border-radius:999px; border:none; }
