@@ -14,20 +14,104 @@
   const name = params.get('name');
   const monster = monsters.find(m => m.name === name);
 
-  if (monster) {
+  function calculateTime(baseHours, bonuses) {
+    let multiplier = 1;
+    if (bonuses.enhanced) multiplier -= 0.25;
+    if (bonuses.titanSkin) multiplier -= 0.10;
+    if (bonuses.titansoul) multiplier -= 0.25;
+    return baseHours * multiplier;
+  }
+
+  function formatTime(hours) {
+    const totalSeconds = Math.max(0, Math.round(hours * 3600));
+    const h = Math.floor(totalSeconds / 3600);
+    const m = Math.floor((totalSeconds % 3600) / 60);
+    const s = totalSeconds % 60;
+    if (h === 0 && m === 0) return `${s}s`;
+    if (h === 0) return `${m}m ${s}s`;
+    return `${h}h ${m}m ${s}s`;
+  }
+
+  if (!monster) {
+    document.getElementById('monsterPage').innerHTML = '<p>Monster not found.</p>';
+  } else {
     document.title = monster.name;
+
+    document.getElementById('monsterPage').classList.add(`rarity-${monster.rarity.toLowerCase()}`);
+
     document.getElementById('monsterPage').innerHTML = `
       <img src="${monster.image || 'images/placeholder.png'}" />
       <h1>${monster.name}</h1>
+      <p class="rarity">${monster.rarity}</p>
       <p>${monster.summary || ''}</p>
       <p><strong>Sound:</strong> ${monster.sound}</p>
       <p><strong>Purchase Cost:</strong> ${monster.cost || 'Unknown'}</p>
-      <p><strong>Breeding Combinations:</strong></p>
-      <ul>${(monster.breeding || []).map(b=>`<li>${b}</li>`).join('')}</ul>
-      <div>${monster.elements.map(e=>`<span class='pill'>${e}</span>`).join('')}</div>
+
+      <h3>⏱ Breeding Time</h3>
+      <p>Base Time: <span id="baseBreed"></span></p>
+
+      <div class="timer-controls">
+        <label><input type="checkbox" id="enhanced"> Enhanced Structure (−25%)</label><br>
+        <label><input type="checkbox" id="titanSkin"> Titan Skin (−10%)</label><br>
+        <label><input type="checkbox" id="titansoul"> Titansoul Reward (−25%)</label>
+      </div>
+
+      <h4>🏝 Select Island</h4>
+      <select id="islandSelect">
+        ${Object.keys(monster.baseTimes).map(i=>`<option value="${i}">${i}</option>`).join('')}
+      </select>
+
+      <button id="compareBtn" class="compare">Compare Islands</button>
+      <div id="compareResults"></div>
+
+      <p><strong>Final Time:</strong> <span id="finalBreed"></span></p>
+
+      <h3>🏠 Nursery Time</h3>
+      <p>Base Time: <span id="baseNursery"></span></p>
+      <p><strong>Final Time:</strong> <span id="finalNursery"></span></p>
     `;
-  } else {
-    document.getElementById('monsterPage').innerHTML = '<p>Monster not found.</p>';
+
+    function updateTimer() {
+      const bonuses = {
+        enhanced: enhanced.checked,
+        titanSkin: titanSkin.checked,
+        titansoul: titansoul.checked
+      };
+
+      const island = islandSelect.value;
+      const times = monster.baseTimes[island];
+
+      baseBreed.textContent = formatTime(times.breed);
+      baseNursery.textContent = formatTime(times.nursery);
+      finalBreed.textContent = formatTime(calculateTime(times.breed, bonuses));
+      finalNursery.textContent = formatTime(calculateTime(times.nursery, bonuses));
+    }
+
+    ['enhanced','titanSkin','titansoul','islandSelect'].forEach(id => {
+      document.getElementById(id).addEventListener('change', updateTimer);
+    });
+
+    updateTimer();
+
+    document.getElementById('compareBtn').addEventListener('click', () => {
+      const bonuses = {
+        enhanced: enhanced.checked,
+        titanSkin: titanSkin.checked,
+        titansoul: titansoul.checked
+      };
+
+      compareResults.innerHTML = '<h4>Island Comparison</h4>';
+
+      Object.entries(monster.baseTimes).forEach(([island, times]) => {
+        const breed = formatTime(calculateTime(times.breed, bonuses));
+        const nursery = formatTime(calculateTime(times.nursery, bonuses));
+
+        const div = document.createElement('div');
+        div.className = 'compare-row';
+        div.innerHTML = `<strong>${island}</strong>: 🥚 ${breed} | 🏠 ${nursery}`;
+        compareResults.appendChild(div);
+      });
+    });
   }
 </script>
 </body>
