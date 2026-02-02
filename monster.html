@@ -21,6 +21,9 @@
       <h1>${monster.name}</h1>
       <p>${monster.summary || ''}</p>
       <p><strong>Sound:</strong> ${monster.sound}</p>
+      <p><strong>Purchase Cost:</strong> ${monster.cost || 'Unknown'}</p>
+      <p><strong>Breeding Combinations:</strong></p>
+      <ul>${(monster.breeding || []).map(b=>`<li>${b}</li>`).join('')}</ul>
       <div>${monster.elements.map(e=>`<span class='pill'>${e}</span>`).join('')}</div>
     `;
   } else {
