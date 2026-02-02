@@ -7,20 +7,18 @@
 </head>
 <body>
 <header><h1>👹 Monsters</h1></header>
-
 <main class="card-grid" id="monsterGrid"></main>
-
 <script src="data.js"></script>
 <script>
   monsters.forEach(m => {
-    const card = document.createElement('div');
+    const card = document.createElement('a');
     card.className = 'card';
+    card.href = `monster.html?name=${encodeURIComponent(m.name)}`;
     card.innerHTML = `
-      <img src="${m.image || 'images/placeholder.png'}">
+      <img src="${m.image || 'images/placeholder.png'}" />
       <h3>${m.name}</h3>
       <p>${m.sound}</p>
-      <div>${m.elements.map(e=>`<span class="pill">${e}</span>`).join('')}</div>
-    `;
+      <div>${m.elements.map(e=>`<span class='pill'>${e}</span>`).join('')}</div>`;
     document.getElementById('monsterGrid').appendChild(card);
   });
 </script>
