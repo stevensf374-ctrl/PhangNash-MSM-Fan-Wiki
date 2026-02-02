@@ -5,5 +5,14 @@ nav a { color:#fff; margin-right:.5rem; text-decoration:none; }
 .card { background:#fff; border-radius:18px; padding:1rem; box-shadow:0 6px 18px rgba(0,0,0,.1); text-align:center; }
 .card img { width:100%; border-radius:14px; }
 .pill { background:#69c36d; color:#fff; padding:.2rem .6rem; border-radius:999px; font-size:.75rem; }
+.rarity { font-weight:600; }
+
+/* Rarity Styling */
+.rarity-rare { border:3px solid #3fffdc; }
+.rarity-rare .rarity { color:#00cbb3; }
+
+.rarity-epic { border:3px solid #ffd24d; }
+.rarity-epic .rarity { color:#d4a300; }
+
 input#search { width:100%; padding:.8rem; margin:1rem 0; border-radius:999px; border:none; }
 #searchInfo { padding: 0 1rem; opacity: .8; }
