@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Monster</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header><a href="monsters.html">← Back to Monsters</a></header>
+<main id="monsterPage" class="card"></main>
+<script src="data.js"></script>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const name = params.get('name');
+  const monster = monsters.find(m => m.name === name);
+
+  if (monster) {
+    document.title = monster.name;
+    document.getElementById('monsterPage').innerHTML = `
+      <img src="${monster.image || 'images/placeholder.png'}" />
+      <h1>${monster.name}</h1>
+      <p>${monster.summary || ''}</p>
+      <p><strong>Sound:</strong> ${monster.sound}</p>
+      <div>${monster.elements.map(e=>`<span class='pill'>${e}</span>`).join('')}</div>
+    `;
+  } else {
+    document.getElementById('monsterPage').innerHTML = '<p>Monster not found.</p>';
+  }
+</script>
+</body>
+</html>
