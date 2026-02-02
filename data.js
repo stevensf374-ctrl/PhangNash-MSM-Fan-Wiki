@@ -1,9 +1,11 @@
 const monsters = [
   {
-    name: "Furcorn",
-    elements: ["Plant", "Cold"],
-    sound: "Soft vocal harmony",
-    image: "images/furcorn.png"
+    name: 'Furcorn',
+    type: 'monster',
+    elements: ['Plant','Cold'],
+    sound: 'Soft vocal harmony',
+    image: 'images/furcorn.png',
+    summary: 'A friendly Natural Monster known for gentle singing.'
   }
 ];
 
