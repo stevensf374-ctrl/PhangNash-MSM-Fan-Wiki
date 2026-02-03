@@ -14,7 +14,7 @@
     <a href="monsters.html">Monsters</a>
     <a href="islands.html">Islands</a>
     <a href="lore.html">Lore</a>
-    <a href="admin/">Edit Mode</a>
+    <a href="#" id="adminToggle">Editor Mode</a>
   </nav>
 </header>
 
@@ -30,5 +30,49 @@
 
 <script src="data.js"></script>
 <script src="search.js"></script>
+<script>
+  const ADMIN_PASSWORD = 'W1&iiPh@NGlaah';
+  const adminToggle = document.getElementById('adminToggle');
+
+  function isAdmin() {
+    return localStorage.getItem('msm_admin') === 'true';
+  }
+
+  function enableAdmin() {
+    document.body.classList.add('admin');
+    document.querySelectorAll('[data-editable]').forEach(el => {
+      el.contentEditable = true;
+      el.classList.add('editable');
+    });
+  }
+
+  function disableAdmin() {
+    document.body.classList.remove('admin');
+    document.querySelectorAll('[data-editable]').forEach(el => {
+      el.contentEditable = false;
+      el.classList.remove('editable');
+    });
+  }
+
+  adminToggle.addEventListener('click', e => {
+    e.preventDefault();
+    if (!isAdmin()) {
+      const pass = prompt('Enter admin password');
+      if (pass === ADMIN_PASSWORD) {
+        localStorage.setItem('msm_admin','true');
+        enableAdmin();
+        alert('Editor Mode enabled');
+      } else {
+        alert('Incorrect password');
+      }
+    } else {
+      localStorage.removeItem('msm_admin');
+      disableAdmin();
+      alert('Editor Mode disabled');
+    }
+  });
+
+  if (isAdmin()) enableAdmin();
+</script>
 </body>
 </html>
