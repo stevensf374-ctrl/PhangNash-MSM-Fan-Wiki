@@ -11,7 +11,15 @@ nav a { color:#fff; margin-right:.5rem; text-decoration:none; }
 .rarity-rare { border:3px solid #3fffdc; }
 .rarity-rare .rarity { color:#00cbb3; }
 
-.rarity-epic { border:3px solid #ffd24d; }
+.rarity-epic {
+  border:3px solid #ffd24d;
+}
+.rarity-epic .rarity { color:#d4a300; }
+
+/* Island Comparison Cards */
+#compareResults { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:1rem; margin-top:1rem; }
+.island-card { background:#fff; border-radius:14px; padding:.75rem; box-shadow:0 4px 12px rgba(0,0,0,.1); }
+.island-card.active { outline:3px solid #69c36d; }
 .rarity-epic .rarity { color:#d4a300; }
 
 input#search { width:100%; padding:.8rem; margin:1rem 0; border-radius:999px; border:none; }
