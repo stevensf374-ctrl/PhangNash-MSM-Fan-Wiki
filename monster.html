@@ -106,10 +106,18 @@
         const breed = formatTime(calculateTime(times.breed, bonuses));
         const nursery = formatTime(calculateTime(times.nursery, bonuses));
 
-        const div = document.createElement('div');
-        div.className = 'compare-row';
-        div.innerHTML = `<strong>${island}</strong>: 🥚 ${breed} | 🏠 ${nursery}`;
-        compareResults.appendChild(div);
+        const card = document.createElement('div');
+        card.className = 'island-card';
+        if (island === islandSelect.value) card.classList.add('active');
+
+        card.innerHTML = `
+          <h5>🏝 ${island}</h5>
+          <p>🥚 Breeding: <strong>${breed}</strong></p>
+          <p>🏠 Nursery: <strong>${nursery}</strong></p>
+        `;
+
+        compareResults.appendChild(card);
+      });
       });
     });
   }
